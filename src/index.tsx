@@ -66,7 +66,9 @@ const PieChart = ({
 
           // TODO: Pad: "stroke": "black, "stroke-width": "2px"
           //       OR: use padAngle
-          return <Path key={arc.index} fill={sliceColor[i]} d={arcGenerator()} />
+          return (
+            <Path key={arc.index} fill={sliceColor[i]} d={arcGenerator()} onPress={() => console.log('path clicked')} />
+          )
         })}
 
         {coverRadius && coverRadius > 0 && coverFill && (

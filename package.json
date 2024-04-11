@@ -10,7 +10,8 @@
     "pretty": "prettier './src/**/*.ts*' --write --config .prettierrc",
     "lint": "eslint --quiet './src/**/*.ts*'",
     "check": "npm run pretty && npm run lint && npm run tsc",
-    "build": "babel src --out-dir dist --extensions '.ts,.tsx'"
+    "build": "babel src --out-dir dist --extensions '.ts,.tsx'",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",

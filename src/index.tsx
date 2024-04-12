@@ -72,14 +72,16 @@ const PieChart = ({
             <Path
               key={arc.index}
               onPressIn={() => {
+                console.log('press in')
                 const newSliceColors = sliceColors
                 newSliceColors[i] = 'black'
-                setSliceColors(newSliceColors)
+                setSliceColors({ ...newSliceColors })
               }}
               onPressOut={() => {
+                console.log('press out')
                 const newSliceColors = sliceColors
                 newSliceColors[i] = 'green'
-                setSliceColors(newSliceColors)
+                setSliceColors({ ...newSliceColors })
               }}
               fill={sliceColors[i]}
               d={arcGenerator()}

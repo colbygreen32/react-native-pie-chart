@@ -67,7 +67,7 @@ const PieChart = ({
           // TODO: Pad: "stroke": "black, "stroke-width": "2px"
           //       OR: use padAngle
           return (
-            <TouchableOpacity onPress={() => console.log('path clicked')}>
+            <TouchableOpacity key={arc.index} onPress={() => console.log('path clicked')}>
               <Path key={arc.index} fill={sliceColor[i]} d={arcGenerator()} />
             </TouchableOpacity>
           )

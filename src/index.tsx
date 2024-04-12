@@ -1,6 +1,6 @@
 // Copyright 2023 Aidin Gharibnavaz <https://aidinhut.com>
 
-import { StyleProp, ViewStyle } from 'react-native'
+import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
 import { Svg, G, Path } from 'react-native-svg'
 import * as d3 from 'd3-shape'
 
@@ -67,7 +67,9 @@ const PieChart = ({
           // TODO: Pad: "stroke": "black, "stroke-width": "2px"
           //       OR: use padAngle
           return (
-            <Path key={arc.index} fill={sliceColor[i]} d={arcGenerator()} onPress={() => console.log('path clicked')} />
+            <TouchableOpacity onPress={() => console.log('path clicked')}>
+              <Path key={arc.index} fill={sliceColor[i]} d={arcGenerator()} />
+            </TouchableOpacity>
           )
         })}
 

@@ -1,8 +1,9 @@
 // Copyright 2023 Aidin Gharibnavaz <https://aidinhut.com>
 
-import { StyleProp, TouchableOpacity, ViewStyle } from 'react-native'
+import { StyleProp, ViewStyle } from 'react-native'
 import { Svg, G, Path } from 'react-native-svg'
 import * as d3 from 'd3-shape'
+import { useState } from 'react'
 
 export type Props = {
   widthAndHeight: number
@@ -21,6 +22,7 @@ const PieChart = ({
   coverRadius,
   style = {},
 }: Props): JSX.Element => {
+  const [sliceColors, setSliceColors] = useState(sliceColor)
   // Validating props
   series.forEach((s) => {
     if (s < 0) {
@@ -67,9 +69,21 @@ const PieChart = ({
           // TODO: Pad: "stroke": "black, "stroke-width": "2px"
           //       OR: use padAngle
           return (
-            <TouchableOpacity key={arc.index} onPress={() => console.log('path clicked')}>
-              <Path key={arc.index} fill={sliceColor[i]} d={arcGenerator()} />
-            </TouchableOpacity>
+            <Path
+              key={arc.index}
+              onPressIn={() => {
+                const newSliceColors = sliceColors
+                newSliceColors[i] = 'black'
+                setSliceColors(newSliceColors)
+              }}
+              onPressOut={() => {
+                const newSliceColors = sliceColors
+                newSliceColors[i] = 'green'
+                setSliceColors(newSliceColors)
+              }}
+              fill={sliceColors[i]}
+              d={arcGenerator()}
+            />
           )
         })}
 

@@ -39,6 +39,7 @@
     "@babel/eslint-parser": "7.23.3",
     "@babel/runtime": "7.23.5",
     "@react-native/eslint-config": "0.74.0",
+    "@types/color": "^3.0.6",
     "@types/react": "18.2.39",
     "@typescript-eslint/eslint-plugin": "6.13.1",
     "@typescript-eslint/parser": "6.13.1",
@@ -53,11 +54,12 @@
     "eslint-plugin-react-native": "4.1.0",
     "metro-react-native-babel-preset": "0.77.0",
     "prettier": "3.1.0",
-    "typescript": "5.3.2",
     "react": "18.2.0",
-    "react-native": "0.72.7"
+    "react-native": "0.72.7",
+    "typescript": "5.3.2"
   },
   "dependencies": {
+    "color": "^4.2.3",
     "d3-shape": "3.2.0"
   },
   "volta": {

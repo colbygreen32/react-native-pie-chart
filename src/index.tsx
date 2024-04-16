@@ -4,6 +4,7 @@ import { StyleProp, ViewStyle } from 'react-native'
 import { Svg, G, Path } from 'react-native-svg'
 import * as d3 from 'd3-shape'
 import { useState } from 'react'
+import Color from 'color'
 
 export type Props = {
   widthAndHeight: number
@@ -59,13 +60,15 @@ const PieChart = ({ widthAndHeight, slices, coverFill = null, coverRadius, style
             <Path
               key={arc.index}
               onPressIn={() => {
-                console.log('press in')
                 const newSliceColors = sliceColors
-                newSliceColors[i] = slices[i].clickColor
+                let newColor = slices[i].clickColor
+                if (!newColor) {
+                  newColor = Color(slices[i].color).lighten(0.5).hex()
+                }
+                newSliceColors[i] = newColor
                 setSliceColors({ ...newSliceColors })
               }}
               onPressOut={() => {
-                console.log('press out')
                 const newSliceColors = sliceColors
                 newSliceColors[i] = slices[i].color
                 setSliceColors({ ...newSliceColors })

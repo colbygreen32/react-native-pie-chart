@@ -7,38 +7,25 @@ import { useState } from 'react'
 
 export type Props = {
   widthAndHeight: number
-  series: number[]
-  sliceColor: string[]
+  slices: { value: number; color: string; clickColor: string }[]
   coverFill?: string | null
   coverRadius?: number
   style?: StyleProp<ViewStyle>
 }
 
-const PieChart = ({
-  widthAndHeight,
-  series,
-  sliceColor,
-  coverFill = null,
-  coverRadius,
-  style = {},
-}: Props): JSX.Element => {
-  const [sliceColors, setSliceColors] = useState(sliceColor)
+const PieChart = ({ widthAndHeight, slices, coverFill = null, coverRadius, style = {} }: Props): JSX.Element => {
+  const [sliceColors, setSliceColors] = useState(slices.map((slice) => slice.color))
+
   // Validating props
-  series.forEach((s) => {
-    if (s < 0) {
+  slices.forEach((s) => {
+    if (s.value < 0) {
       throw Error(`Invalid series: all numbers should be positive. Found ${s}`)
     }
   })
 
-  const sum = series.reduce((previous, current) => previous + current, 0)
+  const sum = slices.reduce((previous, current) => previous + current.value, 0)
   if (sum <= 0) {
     throw Error('Invalid series: sum of series is zero')
-  }
-
-  if (sliceColor.length != series.length) {
-    throw Error(
-      `Invalid "sliceColor": its length should be equal to the length of "series". sliceColor.length=${sliceColor.length} series.length=${series.length}`
-    )
   }
 
   if (coverRadius && (coverRadius < 0 || coverRadius > 1)) {
@@ -49,7 +36,7 @@ const PieChart = ({
 
   const pieGenerator = d3.pie().sort(null)
 
-  const arcs = pieGenerator(series)
+  const arcs = pieGenerator(slices.map((slice) => slice.value))
 
   return (
     <Svg style={style} width={widthAndHeight} height={widthAndHeight}>
@@ -74,13 +61,13 @@ const PieChart = ({
               onPressIn={() => {
                 console.log('press in')
                 const newSliceColors = sliceColors
-                newSliceColors[i] = 'black'
+                newSliceColors[i] = slices[i].clickColor
                 setSliceColors({ ...newSliceColors })
               }}
               onPressOut={() => {
                 console.log('press out')
                 const newSliceColors = sliceColors
-                newSliceColors[i] = 'green'
+                newSliceColors[i] = slices[i].color
                 setSliceColors({ ...newSliceColors })
               }}
               fill={sliceColors[i]}

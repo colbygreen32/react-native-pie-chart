@@ -8,7 +8,7 @@ import Color from 'color'
 
 export type Props = {
   widthAndHeight: number
-  slices: { value: number; color: string; clickColor: string; coverRadius?: number }[]
+  slices: { value: number; color: string; clickColor: string; coverRadius?: number; outerRadius?: number }[]
   coverFill?: string | null
   coverRadius?: number
   style?: StyleProp<ViewStyle>
@@ -48,11 +48,9 @@ const PieChart = ({ widthAndHeight, slices, coverFill = null, coverRadius, style
           // When 'coverFill' is also provided, instead of setting the
           // 'innerRadius', we draw a circle in the middle. See the 'Path'
           // after the 'map'.
-          if (!coverRadius) {
-            arcGenerator = arcGenerator.innerRadius(0)
-          } else {
-            arcGenerator = arcGenerator.innerRadius((slices[i].coverRadius || coverRadius) * radius)
-          }
+          arcGenerator = arcGenerator
+            .innerRadius((slices[i].coverRadius || coverRadius || 0) * radius)
+            .outerRadius(slices[i].outerRadius || 0)
 
           // TODO: Pad: "stroke": "black, "stroke-width": "2px"
           //       OR: use padAngle

@@ -50,7 +50,7 @@ const PieChart = ({ widthAndHeight, slices, coverFill = null, coverRadius, style
           // after the 'map'.
           arcGenerator = arcGenerator
             .innerRadius((slices[i].coverRadius || coverRadius || 0) * radius)
-            .outerRadius(slices[i].outerRadius || 0)
+            .outerRadius((slices[i].outerRadius || 0) * radius)
 
           // TODO: Pad: "stroke": "black, "stroke-width": "2px"
           //       OR: use padAngle
